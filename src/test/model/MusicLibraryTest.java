@@ -79,6 +79,15 @@ class MusicLibraryTest {
     }
 
     @Test
+    public void TestGetMoreSongs() {
+        Song song2 = new Song("O'Canada", "1990", "Justin Bieber", "Cool Song");
+        Song song3 = new Song("What does the Fox Say?", "203", "Pewdiepie", "Very Nice!");
+        this.musicList.addSong(song2);
+        this.musicList.addSong(song3);
+        assertEquals(3, musicList.getSongs().size());
+    }
+
+    @Test
     public void TestSetName() {
         musicList.setName("New Name");
         assertEquals("New Name", musicList.getName());
@@ -98,6 +107,19 @@ class MusicLibraryTest {
         assertTrue(testing.equals(musicList.getSongsInfo("Happy Birthday")));
     }
 
+    @Test
+    public void TestGetSongsInfoAnotherSong() {
+        Song song2 = new Song("O'Canada", "1990", "Justin Bieber", "Cool Song");
+        Song song3 = new Song("What does the Fox Say?", "203", "Pewdiepie", "Very Nice!");
+        this.musicList.addSong(song2);
+        this.musicList.addSong(song3);
+        ArrayList<String> testing = new ArrayList<>();
+        testing.add("Name: What does the Fox Say?");
+        testing.add("Date: 203");
+        testing.add("Artist: Pewdiepie");
+        testing.add("Info: Very Nice!");
+        assertTrue(testing.equals(musicList.getSongsInfo("What does the Fox Say?")));
+    }
 
     @Test
     public void TestGetSongsNames() {
