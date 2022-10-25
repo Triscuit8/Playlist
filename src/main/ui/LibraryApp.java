@@ -2,10 +2,16 @@ package ui;
 
 import model.MusicList;
 import model.Song;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+import persistence.JsonReader2;
+import persistence.JsonWriter2;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
-public class Library {
+public class LibraryApp {
 
     Scanner userInput = new Scanner(System.in);
     Scanner userScreenNewName = new Scanner(System.in);
@@ -19,9 +25,21 @@ public class Library {
     MusicList musicList = new MusicList("New Playlist");
     MusicList favList = new MusicList("Favourite List");
 
+    private static final String JSON_STORE = "./data/musiclist.json";
+    private static final String JSON_STORE2 = "./data/favmusiclist.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private JsonWriter2 jsonWriter2;
+    private JsonReader2 jsonReader2;
+
 
     //EFFECTS: Constructs a library
-    public Library() {
+    public LibraryApp() {
+
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter2 = new JsonWriter2(JSON_STORE2);
+        jsonReader2 = new JsonReader2(JSON_STORE2);
 
         while (stayOnMenu) {
 
@@ -61,6 +79,16 @@ public class Library {
 
                 quitApp();
 
+            } else if (userChoice.equals("s")) {
+
+                saveMusicList();
+                saveFavMusicList();
+
+            } else if (userChoice.equals("l")) {
+
+                loadMusicList();
+                loadFavMusicList();
+
             } else {
                 invalidKeyMain();
             }
@@ -88,6 +116,10 @@ public class Library {
         System.out.println("f -> add a song from the main list to the favourite list!");
 
         System.out.println("g -> remove a song from the favourite list!");
+
+        System.out.println("s -> save the playlist!");
+
+        System.out.println("l -> load the music list!");
 
         System.out.println("q -> quit the application!");
     }
@@ -163,6 +195,7 @@ public class Library {
         for (Song s : musicList.getSongs()) {
             if (s.getSongName().equals(favSong)) {
                 favList.addSong(s);
+                //toString
             }
         }
         System.out.println(favList);
@@ -183,5 +216,45 @@ public class Library {
     public void quitApp() {
         System.out.println("See you next time!");
         stayOnMenu = false;
+    }
+
+    private void saveMusicList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(musicList);
+            jsonWriter.close();
+            System.out.println("Saved " + musicList.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    private void loadMusicList() {
+        try {
+            musicList = jsonReader.read();
+            System.out.println("Loaded " + musicList.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+    private void saveFavMusicList() {
+        try {
+            jsonWriter2.openFav();
+            jsonWriter2.writeFav(favList);
+            jsonWriter2.closeFav();
+            System.out.println("Saved " + favList.getName() + " to " + JSON_STORE2);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE2);
+        }
+    }
+
+    private void loadFavMusicList() {
+        try {
+            favList = jsonReader2.readFav();
+            System.out.println("Loaded " + favList.getName() + " from " + JSON_STORE2);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE2);
+        }
     }
 }

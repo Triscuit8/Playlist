@@ -1,6 +1,10 @@
 package model;
 
-public class Song {
+import org.json.JSONObject;
+import persistence.Writable;
+
+
+public class Song implements Writable {
     private String name;
     private String date;
     private String artist;
@@ -33,5 +37,16 @@ public class Song {
     //EFFECTS: Returns the info about the song
     public String getSongInfo() {
         return this.info;
+    }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("date", date);
+        json.put("artist", artist);
+        json.put("info", info);
+        return json;
     }
 }

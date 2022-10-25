@@ -36,7 +36,16 @@ This application will not only benefit me but also millions of other music lover
 - *Create favourite list*
 
 ### User Stories
-- *As a user, I want to be able to create a new music library and add a song to it*
+- *As a user, I want to be able to make a music playlist*
+- *As a user, I want to be able to rename the music playlist*
+- *As a user, I want to be able to remove songs from the playlist*
+- *As a user, I want to be able to add songs to a favourite songs list*
+- *As a user, I want to be able to remove songs from a favourite songs list*
+- *As a user, I want to be able to shuffle the order of the songs in the music playlist*
+- *As a user, I want to be able to save the songs and the information in the music playlist to file*
+- *As a user, I want to be able to reload the file that I had saved before when I relaunch the application*
 
+
+Credit: Used JSON and persistence files from the CPSC 210 page.
 
 

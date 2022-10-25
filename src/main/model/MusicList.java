@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import persistence.Writable;
 
 
-public class MusicList {
+public class MusicList implements Writable {
 
     String name;
     ArrayList<String> songsNames;
@@ -29,6 +33,10 @@ public class MusicList {
         return this.songs;
     }
 
+    public int getNumSongs() {
+        return songs.size();
+    }
+
     //REQUIRES: String
     //MODIFIES: this
     //EFFECTS: sets the name of the class
@@ -51,6 +59,10 @@ public class MusicList {
             outputSongs.add(s.getSongName());
         }
         return outputSongs;
+    }
+
+    public int getSize() {
+        return songs.size();
     }
 
     //REQUIRES: String
@@ -85,6 +97,23 @@ public class MusicList {
     //EFFECTS: shuffles the order of songs
     public void shuffleSongs() {
         Collections.shuffle(this.songs);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("songs", songsToJson());
+        return json;
+    }
+
+
+    private JSONArray songsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Song s : songs) {
+            jsonArray.put(s.toJson());
+        }
+        return jsonArray;
     }
 
 
