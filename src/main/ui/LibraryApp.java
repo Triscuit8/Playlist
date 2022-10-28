@@ -4,8 +4,8 @@ import model.MusicList;
 import model.Song;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import persistence.JsonReader2;
-import persistence.JsonWriter2;
+//import persistence.JsonReader2;
+//import persistence.JsonWriter2;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -29,8 +29,8 @@ public class LibraryApp {
     private static final String JSON_STORE2 = "./data/favmusiclist.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    private JsonWriter2 jsonWriter2;
-    private JsonReader2 jsonReader2;
+    private JsonWriter jsonWriter2;
+    private JsonReader jsonReader2;
 
 
     //EFFECTS: Constructs a library
@@ -39,8 +39,8 @@ public class LibraryApp {
 
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        jsonWriter2 = new JsonWriter2(JSON_STORE2);
-        jsonReader2 = new JsonReader2(JSON_STORE2);
+        jsonWriter2 = new JsonWriter(JSON_STORE2);
+        jsonReader2 = new JsonReader(JSON_STORE2);
 
         while (stayOnMenu) {
 
@@ -241,9 +241,9 @@ public class LibraryApp {
 
     private void saveFavMusicList() {
         try {
-            jsonWriter2.openFav();
-            jsonWriter2.writeFav(favList);
-            jsonWriter2.closeFav();
+            jsonWriter2.open();
+            jsonWriter2.write(favList);
+            jsonWriter2.close();
             System.out.println("Saved " + favList.getName() + " to " + JSON_STORE2);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE2);
@@ -252,7 +252,7 @@ public class LibraryApp {
 
     private void loadFavMusicList() {
         try {
-            favList = jsonReader2.readFav();
+            favList = jsonReader2.read();
             System.out.println("Loaded " + favList.getName() + " from " + JSON_STORE2);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE2);
