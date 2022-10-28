@@ -59,9 +59,9 @@ class JsonWriterTest extends JsonTest {
             ml = reader.read();
             assertEquals("New Playlist", ml.getName());
             List<Song> songs = ml.getSongs();
-            assertEquals(2, ml.getSize());
-            checkSong("hi", songs.get(0));
-            checkSong("bye", songs.get(1));
+            assertEquals(2, songs.size());
+            checkSong("hi", "2000", "Kanye", "hi", songs.get(0));
+            checkSong("bye", "1999", "West", "bye", songs.get(1));
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");
