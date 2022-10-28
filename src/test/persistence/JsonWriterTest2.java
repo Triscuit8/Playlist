@@ -15,7 +15,7 @@ class JsonWriterTest2 extends JsonTest {
     //read in a copy of what was written out.
 
     @Test
-    void testWriterInvalidFile() {
+    void testWriterInvalidFile2() {
         try {
             MusicList ml = new MusicList("New Playlist");
             JsonWriter2 writer = new JsonWriter2("./data/my\0illegal:fileName.json");
@@ -27,7 +27,7 @@ class JsonWriterTest2 extends JsonTest {
     }
 
     @Test
-    void testWriterEmptyMusicList() {
+    void testWriterEmptyMusicList2() {
         try {
             MusicList ml = new MusicList("New Playlist");
             JsonWriter2 writer = new JsonWriter2("./data/testWriterEmptyMusicList.json");
@@ -35,8 +35,8 @@ class JsonWriterTest2 extends JsonTest {
             writer.writeFav(ml);
             writer.closeFav();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyMusicList.json");
-            ml = reader.read();
+            JsonReader2 reader = new JsonReader2("./data/testWriterEmptyMusicList.json");
+            ml = reader.readFav();
             assertEquals("New Playlist", ml.getName());
             assertEquals(0, ml.getNumSongs());
         } catch (IOException e) {
@@ -45,7 +45,7 @@ class JsonWriterTest2 extends JsonTest {
     }
 
     @Test
-    void testWriterGeneralMusicList() {
+    void testWriterGeneralMusicList2() {
         try {
             MusicList ml = new MusicList("New Playlist");
             ml.addSong(new Song("hi", "2000", "Kanye", "hi"));

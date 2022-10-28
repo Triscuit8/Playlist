@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JsonReaderTest2 extends JsonTest {
 
     @Test
-    void testReaderNonExistentFile() {
+    void testReaderNonExistentFile2() {
         JsonReader2 reader = new JsonReader2("./data/noSuchFile.json");
         try {
             MusicList ml = reader.readFav();
@@ -25,7 +25,7 @@ class JsonReaderTest2 extends JsonTest {
     }
 
     @Test
-    void testReaderEmptyMusicList() {
+    void testReaderEmptyMusicList2() {
         JsonReader2 reader = new JsonReader2("./data/testReaderEmptyMusicList2.json");
         try {
             MusicList ml = reader.readFav();
@@ -37,7 +37,7 @@ class JsonReaderTest2 extends JsonTest {
     }
 
     @Test
-    void testReaderGeneralWorkRoom() {
+    void testReaderGeneralWorkRoom2() {
         JsonReader2 reader = new JsonReader2("./data/testReaderGeneralMusicList2.json");
         try {
             MusicList ml = reader.readFav();
