@@ -1,0 +1,17 @@
+{
+    "songs": [
+        {
+            "date": "2000",
+            "artist": "Kanye",
+            "name": "hi",
+            "info": "hi"
+        },
+        {
+            "date": "1999",
+            "artist": "West",
+            "name": "bye",
+            "info": "bye"
+        }
+    ],
+    "name": "New Playlist"
+}
