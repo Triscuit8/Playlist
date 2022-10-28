@@ -49,6 +49,15 @@ class MusicLibraryTest {
     }
 
     @Test
+    public void TestGetSize() {
+        Song song2 = new Song("O'Canada", "1990", "Justin Bieber", "Cool Song");
+        Song song3 = new Song("What does the Fox Say?", "203", "Pewdiepie", "Very Nice!");
+        this.musicList.addSong(song2);
+        this.musicList.addSong(song3);
+        assertEquals(3, musicList.getSize());
+    }
+
+    @Test
     public void TestGetSongName() {
         assertEquals("Happy Birthday", song1.getSongName());
     }
