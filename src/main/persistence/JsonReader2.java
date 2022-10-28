@@ -49,6 +49,7 @@ public class JsonReader2 {
             addFavSong(ml, nextSong);
         }
     }
+
     private void addFavSong(MusicList ml, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         String date = jsonObject.getString("date");
@@ -57,9 +58,6 @@ public class JsonReader2 {
         Song song = new Song(name, date, artist, info);
         ml.addSong(song);
     }
-
-
-
 
 
 }

@@ -34,6 +34,7 @@ public class LibraryApp {
 
 
     //EFFECTS: Constructs a library
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public LibraryApp() {
 
         jsonWriter = new JsonWriter(JSON_STORE);

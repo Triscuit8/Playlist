@@ -32,7 +32,7 @@ class JsonReaderTest extends JsonTest {
             assertEquals("New Playlist", ml.getName());
             assertEquals(0, ml.getNumSongs());
         } catch (IOException e) {
-            //fail("Couldn't read from file");
+            fail("Couldn't read from file");
         }
     }
 
@@ -47,7 +47,7 @@ class JsonReaderTest extends JsonTest {
             checkSong("hi", "2000", "Kanye", "hi", songs.get(0));
             checkSong("bye", "1999", "West", "bye", songs.get(1));
         } catch (IOException e) {
-            //fail("Couldn't read from file");
+            fail("Couldn't read from file");
         }
     }
 }
