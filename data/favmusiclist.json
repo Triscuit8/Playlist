@@ -1,23 +1,9 @@
 {
-    "songs": [
-        {
-            "date": "p",
-            "artist": "p",
-            "name": "p",
-            "info": "p"
-        },
-        {
-            "date": "l",
-            "artist": "l",
-            "name": "l",
-            "info": "l"
-        },
-        {
-            "date": "d",
-            "artist": "d",
-            "name": "d",
-            "info": "d"
-        }
-    ],
+    "songs": [{
+        "date": "o",
+        "artist": "o",
+        "name": "o",
+        "info": "o"
+    }],
     "name": "Favourite List"
 }

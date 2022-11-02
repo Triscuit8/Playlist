@@ -1,12 +1,6 @@
 {
     "songs": [
         {
-            "date": "d",
-            "artist": "d",
-            "name": "d",
-            "info": "d"
-        },
-        {
             "date": "l",
             "artist": "l",
             "name": "l",
@@ -17,31 +11,7 @@
             "artist": "o",
             "name": "o",
             "info": "o"
-        },
-        {
-            "date": "g",
-            "artist": "g",
-            "name": "g",
-            "info": "g"
-        },
-        {
-            "date": "t",
-            "artist": "t",
-            "name": "t",
-            "info": "t"
-        },
-        {
-            "date": "f",
-            "artist": "f",
-            "name": "f",
-            "info": "f"
-        },
-        {
-            "date": "p",
-            "artist": "p",
-            "name": "p",
-            "info": "p"
         }
     ],
-    "name": "hi"
+    "name": "New Playlist"
 }
