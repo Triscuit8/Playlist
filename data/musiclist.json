@@ -1,17 +1,4 @@
 {
-    "songs": [
-        {
-            "date": "l",
-            "artist": "l",
-            "name": "l",
-            "info": "l"
-        },
-        {
-            "date": "o",
-            "artist": "o",
-            "name": "o",
-            "info": "o"
-        }
-    ],
+    "songs": [],
     "name": "New Playlist"
 }
