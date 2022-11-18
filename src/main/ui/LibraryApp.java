@@ -290,7 +290,7 @@ public class LibraryApp extends JFrame implements ActionListener {
         Border border = BorderFactory.createLineBorder(Color.GREEN);
         image1 = new ImageIcon(getClass().getResource("mu.jpeg"));
         label1 = new JLabel();
-        label1.setText("Welcome to " + musicList.getName() + " ! Your songs are " + songNamesUI());
+        label1.setText("Welcome to " + musicList.getName() + "! Your songs are " + songNamesUI());
         label1.setVisible(true);
         label1.setBorder(border);
         label1.setOpaque(true);
@@ -435,36 +435,66 @@ public class LibraryApp extends JFrame implements ActionListener {
     public void buttonAddFunction() {
         Song newSong = new Song(fieldN.getText(), fieldD.getText(), fieldA.getText(), fieldI.getText());
         musicList.addSong(newSong);
-        label1.setText("Welcome to " + musicList.getName() + " ! Your songs are " + songNamesUI());
+        label1.setText("Welcome to " + musicList.getName() + "! Your songs are " + songNamesUI());
+        fieldC.setText("Enter new list name...");
+        fieldN.setText("Enter song name...");
+        fieldD.setText("Enter song date...");
+        fieldA.setText("Enter artist name...");
+        fieldI.setText("Enter song info...");
     }
 
     //EFFECTS: Assigning a function for the delete button
     public void buttonDeleteFunction() {
         musicList.removeSong(fieldN.getText());
-        label1.setText("Welcome to " + musicList.getName() + " ! Your songs are " + songNamesUI());
+        label1.setText("Welcome to " + musicList.getName() + "! Your songs are " + songNamesUI());
+        fieldC.setText("Enter new list name...");
+        fieldN.setText("Enter song name...");
+        fieldD.setText("Enter song date...");
+        fieldA.setText("Enter artist name...");
+        fieldI.setText("Enter song info...");
     }
 
     //EFFECTS: Assigning a function for the save button
     public void buttonSaveFunction() {
         saveMusicList();
-        label1.setText("Welcome to " + musicList.getName() + " ! Your songs are " + songNamesUI());
+        label1.setText("Welcome to " + musicList.getName() + "! Your songs are " + songNamesUI());
+        fieldC.setText("Enter new list name...");
+        fieldN.setText("Enter song name...");
+        fieldD.setText("Enter song date...");
+        fieldA.setText("Enter artist name...");
+        fieldI.setText("Enter song info...");
     }
 
     //EFFECTS: Assigning a function for the load button
     public void buttonLoadFunction() {
         loadMusicList();
-        label1.setText("Welcome back to " + musicList.getName() + " ! Your songs are " + songNamesUI());
+        label1.setText("Welcome back to " + musicList.getName() + "! Your songs are " + songNamesUI());
+        fieldC.setText("Enter new list name...");
+        fieldN.setText("Enter song name...");
+        fieldD.setText("Enter song date...");
+        fieldA.setText("Enter artist name...");
+        fieldI.setText("Enter song info...");
     }
 
     //EFFECTS: Assigning a function for the shuffle button
     public void buttonShuffleFunction() {
         musicList.shuffleSongs();
-        label1.setText("Welcome to " + musicList.getName() + " ! Your songs are " + songNamesUI());
+        label1.setText("Welcome to " + musicList.getName() + "! Your songs are " + songNamesUI());
+        fieldC.setText("Enter new list name...");
+        fieldN.setText("Enter song name...");
+        fieldD.setText("Enter song date...");
+        fieldA.setText("Enter artist name...");
+        fieldI.setText("Enter song info...");
     }
 
     //EFFECTS: Assigning a function for the change list name button
     public void buttonChangeNameFunction() {
         musicList.setName(fieldC.getText());
-        label1.setText("Welcome to " + musicList.getName() + " ! Your songs are " + songNamesUI());
+        label1.setText("Welcome to " + musicList.getName() + "! Your songs are " + songNamesUI());
+        fieldC.setText("Enter new list name...");
+        fieldN.setText("Enter song name...");
+        fieldD.setText("Enter song date...");
+        fieldA.setText("Enter artist name...");
+        fieldI.setText("Enter song info...");
     }
 }
