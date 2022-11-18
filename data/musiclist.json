@@ -1,4 +1,35 @@
 {
-    "songs": [],
-    "name": "New Playlist"
+    "songs": [
+        {
+            "date": "Enter song date...",
+            "artist": "Enter artist name...",
+            "name": "y",
+            "info": "Enter song info..."
+        },
+        {
+            "date": "Enter song date...",
+            "artist": "Enter artist name...",
+            "name": "yy",
+            "info": "Enter song info..."
+        },
+        {
+            "date": "Enter song date...",
+            "artist": "Enter artist name...",
+            "name": "Enter song name...",
+            "info": "Enter song info..."
+        },
+        {
+            "date": "Enter song date...",
+            "artist": "Enter artist name...",
+            "name": "h",
+            "info": "Enter song info..."
+        },
+        {
+            "date": "Enter song date...",
+            "artist": "Enter artist name...",
+            "name": "uuu",
+            "info": "Enter song info..."
+        }
+    ],
+    "name": "l"
 }

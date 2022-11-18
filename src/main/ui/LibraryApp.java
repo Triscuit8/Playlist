@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.*;
@@ -21,17 +20,20 @@ import java.awt.*;
 
 public class LibraryApp extends JFrame implements ActionListener {
 
-
     JFrame frame;
+
     JTextField fieldN;
     JTextField fieldD;
     JTextField fieldA;
     JTextField fieldI;
+    JTextField fieldC;
 
     JButton buttonAdd;
     JButton buttonDelete;
     JButton buttonSave;
     JButton buttonLoad;
+    JButton buttonShuffle;
+    JButton buttonChangeName;
 
     JLabel label1;
     JLabel label2;
@@ -39,10 +41,6 @@ public class LibraryApp extends JFrame implements ActionListener {
     JPanel panel1;
 
     Icon image1;
-
-    public static final int WIDTH = 1000;
-    public static final int HEIGHT = 700;
-
 
     Scanner userInput = new Scanner(System.in);
     Scanner userScreenNewName = new Scanner(System.in);
@@ -52,7 +50,9 @@ public class LibraryApp extends JFrame implements ActionListener {
     Scanner userScreenNewInfo = new Scanner(System.in);
     Scanner userScreenFavSongAdd = new Scanner(System.in);
     Scanner userScreenFavSongRemove = new Scanner(System.in);
+
     Boolean stayOnMenu = true;
+
     MusicList musicList = new MusicList("New Playlist");
     MusicList favList = new MusicList("Favourite List");
 
@@ -64,78 +64,17 @@ public class LibraryApp extends JFrame implements ActionListener {
     private JsonReader jsonReader2;
 
     Scanner uiInput = new Scanner(System.in);
+
     String userChoice;
 
     //EFFECTS: Constructs a library
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public LibraryApp() {
-
-
-        initializeGraphics();
-        theMainMenu();
-
+        initializeUI();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter2 = new JsonWriter(JSON_STORE2);
         jsonReader2 = new JsonReader(JSON_STORE2);
-
-
-//        while (stayOnMenu) {
-//
-//            theMainMenu();
-//
-//            userChoice = userInput.nextLine().toLowerCase();
-//
-//            //String userChoice = uiInput.nextLine().toLowerCase();
-//
-//            if (userChoice.equals("a")) {
-//
-//                renameMusicListMenu();
-//
-//            } else if (userChoice.equals("b")) {
-//
-//                addSongMenu();
-//
-//            } else if (userChoice.equals("c")) {
-//
-//                removeSongMenu();
-//
-//            } else if (userChoice.equals("d")) {
-//
-//                getSongsInfoMenu();
-//
-//            } else if (userChoice.equals("e")) {
-//
-//                shuffleSongsMenu();
-//
-//            } else if (userChoice.equals("f")) {
-//
-//                addSongToFavListMenu();
-//
-//            } else if (userChoice.equals("g")) {
-//
-//                removeSongFromFavListMenu();
-//
-//            } else if (userChoice.equals("q")) {
-//
-//                quitApp();
-//
-//            } else if (userChoice.equals("s")) {
-//
-//                saveMusicList();
-//                saveFavMusicList();
-//
-//            } else if (userChoice.equals("l")) {
-//
-//                loadMusicList();
-//                loadFavMusicList();
-//
-//            } else {
-//                invalidKeyMain();
-//            }
-//        }
-}
-
+    }
 
     //EFFECTS: Prints out a screen for the main menu of the program
     public void theMainMenu() {
@@ -143,28 +82,17 @@ public class LibraryApp extends JFrame implements ActionListener {
         System.out.println("Welcome to " + musicList.getName() + "!");
         System.out.println("The songs in the list are: " + musicList.getSongsNames());
         System.out.println("Your favourite songs: " + favList.getSongsNames());
-
         System.out.println("a -> rename the playlist");
-
         System.out.println("b -> add a song to the playlist!");
-
         System.out.println("c -> remove a song from the playlist!");
-
         System.out.println("d -> to learn more about a song!");
-
         System.out.println("e -> to shuffle the list!");
-
         System.out.println("f -> add a song from the main list to the favourite list!");
-
         System.out.println("g -> remove a song from the favourite list!");
-
         System.out.println("s -> save the playlist!");
-
         System.out.println("l -> load the music list!");
-
         System.out.println("q -> quit the application!");
     }
-
 
     //MODIFIES: This
     //EFFECTS: Renames the playlist as well as prints out a menu for it
@@ -194,7 +122,6 @@ public class LibraryApp extends JFrame implements ActionListener {
 
     public void addSongMenu(Song song) {
         musicList.addSong(song);
-
     }
 
     //EFFECTS: Prints out a menu for hitting an invalid key
@@ -230,7 +157,6 @@ public class LibraryApp extends JFrame implements ActionListener {
         musicList.shuffleSongs();
         System.out.println("The list has been shuffled!");
         System.out.println('\n');
-
     }
 
     //MODIFIES: This
@@ -264,6 +190,7 @@ public class LibraryApp extends JFrame implements ActionListener {
         stayOnMenu = false;
     }
 
+    //EFFECTS: Saves the state of the music list into JSon date
     private void saveMusicList() {
         try {
             jsonWriter.open();
@@ -275,6 +202,7 @@ public class LibraryApp extends JFrame implements ActionListener {
         }
     }
 
+    //EFFECTS: reloads the last saved state of the music list from saved JSon date
     private void loadMusicList() {
         try {
             musicList = jsonReader.read();
@@ -284,6 +212,7 @@ public class LibraryApp extends JFrame implements ActionListener {
         }
     }
 
+    //EFFECTS: reloads the last saved state of the favourite music list from saved JSon date
     private void saveFavMusicList() {
         try {
             jsonWriter2.open();
@@ -295,6 +224,7 @@ public class LibraryApp extends JFrame implements ActionListener {
         }
     }
 
+    //EFFECTS: reloads the last saved state of the favourite music list from saved JSon date
     private void loadFavMusicList() {
         try {
             favList = jsonReader2.read();
@@ -304,16 +234,63 @@ public class LibraryApp extends JFrame implements ActionListener {
         }
     }
 
+    //EFFECTS: Creates the UI for the application
+    private void initializeUI() {
+        createLabels();
+        createPanel();
+        createButtonAdd();
+        createButtonDelete();
+        createButtonSave();
+        createButtonLoad();
+        createButtonShuffle();
+        createButtonNewListName();
+        createFields();
+        createFrame();
+        addComponents();
+    }
 
+    //EFFECTS: Assigns each button a function when triggered
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == buttonAdd) {
+            buttonAddFunction();
+        }
+        if (e.getSource() == buttonDelete) {
+            buttonDeleteFunction();
+        }
+        if (e.getSource() == buttonSave) {
+            buttonSaveFunction();
+        }
+        if (e.getSource() == buttonLoad) {
+            buttonLoadFunction();
+        }
+        if (e.getSource() == buttonShuffle) {
+            buttonShuffleFunction();
+        }
+        if (e.getSource() == buttonChangeName) {
+            buttonChangeNameFunction();
+        }
+    }
 
-    private void initializeGraphics() {
+    //EFFECTS: Turns the list of music names into a string
+    public String songNamesUI() {
+        return musicList.getSongsNames().toString();
+    }
 
+    //EFFECTS: Creates the panel for the application
+    public void createPanel() {
+        panel1 = new JPanel();
+        panel1.setBackground(Color.LIGHT_GRAY);
+        panel1.setBounds(0, 0, 800, 200);
+        panel1.setLayout(new BorderLayout());
+    }
+
+    //EFFECTS: Creates the labels for the application
+    public void createLabels() {
         Border border = BorderFactory.createLineBorder(Color.GREEN);
-
         image1 = new ImageIcon(getClass().getResource("mu.jpeg"));
-
         label1 = new JLabel();
-        label1.setText("Welcome! Your songs are " + songNamesUI());
+        label1.setText("Welcome to " + musicList.getName() + " ! Your songs are " + songNamesUI());
         label1.setVisible(true);
         label1.setBorder(border);
         label1.setOpaque(true);
@@ -321,50 +298,87 @@ public class LibraryApp extends JFrame implements ActionListener {
         label1.setHorizontalAlignment(JLabel.CENTER);
 
         label2 = new JLabel(image1);
-        label2.setBounds(0, 250, 800, 350);
+        label2.setBounds(0, 200, 800, 400);
+    }
 
-
-        panel1 = new JPanel();
-        panel1.setBackground(Color.LIGHT_GRAY);
-        panel1.setBounds(0, 0, 800, 250);
-        panel1.setLayout(new BorderLayout());
-
-
+    //EFFECTS: Creates the add button for the application
+    public void createButtonAdd() {
         buttonAdd = new JButton();
-        buttonAdd.setBounds(50, 300, 80, 60);
+        buttonAdd.setBounds(50, 250, 120, 60);
         buttonAdd.addActionListener(this);
         buttonAdd.setText("Add");
         buttonAdd.setFocusable(false);
         buttonAdd.setBackground(Color.LIGHT_GRAY);
         buttonAdd.setOpaque(true);
-        buttonAdd.setFont(new Font ("Comic Sans", Font.BOLD, 12));
+        buttonAdd.setFont(new Font("Comic Sans", Font.BOLD, 12));
+    }
 
+    //EFFECTS: Creates the delete button for the application
+    public void createButtonDelete() {
         buttonDelete = new JButton();
-        buttonDelete.setBounds(200, 300, 80, 60);
+        buttonDelete.setBounds(200, 250, 120, 60);
         buttonDelete.addActionListener(this);
         buttonDelete.setText("Remove");
         buttonDelete.setFocusable(false);
         buttonDelete.setBackground(Color.LIGHT_GRAY);
         buttonDelete.setOpaque(true);
-        buttonDelete.setFont(new Font ("Comic Sans", Font.BOLD, 12));
+        buttonDelete.setFont(new Font("Comic Sans", Font.BOLD, 12));
+    }
 
+    //EFFECTS: Creates the save button for the application
+    public void createButtonSave() {
         buttonSave = new JButton();
-        buttonSave.setBounds(50, 400, 80, 60);
+        buttonSave.setBounds(50, 350, 120, 60);
         buttonSave.addActionListener(this);
         buttonSave.setText("Save");
         buttonSave.setFocusable(false);
         buttonSave.setBackground(Color.LIGHT_GRAY);
         buttonSave.setOpaque(true);
-        buttonSave.setFont(new Font ("Comic Sans", Font.BOLD, 12));
+        buttonSave.setFont(new Font("Comic Sans", Font.BOLD, 12));
+    }
 
+    //EFFECTS: Creates the load button for the application
+    public void createButtonLoad() {
         buttonLoad = new JButton();
-        buttonLoad.setBounds(200, 400, 80, 60);
+        buttonLoad.setBounds(200, 350, 120, 60);
         buttonLoad.addActionListener(this);
         buttonLoad.setText("Load");
         buttonLoad.setFocusable(false);
         buttonLoad.setBackground(Color.LIGHT_GRAY);
         buttonLoad.setOpaque(true);
-        buttonLoad.setFont(new Font ("Comic Sans", Font.BOLD, 12));
+        buttonLoad.setFont(new Font("Comic Sans", Font.BOLD, 12));
+    }
+
+    //EFFECTS: Creates the shuffle button for the application
+    public void createButtonShuffle() {
+        buttonShuffle = new JButton();
+        buttonShuffle.setBounds(50, 450, 120, 60);
+        buttonShuffle.addActionListener(this);
+        buttonShuffle.setText("Shuffle");
+        buttonShuffle.setFocusable(false);
+        buttonShuffle.setBackground(Color.LIGHT_GRAY);
+        buttonShuffle.setOpaque(true);
+        buttonShuffle.setFont(new Font("Comic Sans", Font.BOLD, 12));
+    }
+
+    //EFFECTS: Creates the change list name button for the application
+    public void createButtonNewListName() {
+        buttonChangeName = new JButton();
+        buttonChangeName.setBounds(200, 450, 120, 60);
+        buttonChangeName.addActionListener(this);
+        buttonChangeName.setText("New List Name");
+        buttonChangeName.setFocusable(false);
+        buttonChangeName.setBackground(Color.LIGHT_GRAY);
+        buttonChangeName.setOpaque(true);
+        buttonChangeName.setFont(new Font("Comic Sans", Font.BOLD, 12));
+    }
+
+    //EFFECTS: Creates the text fields for the application
+    public void createFields() {
+        fieldC = new JTextField();
+        fieldC.setPreferredSize(new Dimension(250, 40));
+        fieldC.setBounds(400, 250, 250, 40);
+        fieldC.setText("Enter new list name...");
 
         fieldN = new JTextField();
         fieldN.setPreferredSize(new Dimension(250, 40));
@@ -385,77 +399,72 @@ public class LibraryApp extends JFrame implements ActionListener {
         fieldI.setPreferredSize(new Dimension(250, 40));
         fieldI.setBounds(400, 450, 250, 40);
         fieldI.setText("Enter song info...");
+    }
 
+    //EFFECTS: Creates the main frame for the application
+    public void createFrame() {
         frame = new JFrame();
         frame.setTitle("Music Playlist");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
         frame.setResizable(false);
+    }
 
+    //EFFECTS: Adding all the components together for the application
+    public void addComponents() {
         panel1.add(label1);
-
-
         frame.add(panel1);
-
-
-
-
         frame.add(buttonAdd);
         frame.add(buttonDelete);
         frame.add(buttonSave);
         frame.add(buttonLoad);
-
+        frame.add(buttonShuffle);
+        frame.add(buttonChangeName);
+        frame.add(fieldC);
         frame.add(fieldN);
         frame.add(fieldD);
         frame.add(fieldA);
         frame.add(fieldI);
         frame.add(label2);
-
         frame.setLayout(null);
-
         frame.getContentPane().setBackground(Color.WHITE);
-
         frame.setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == buttonAdd) {
-            Song newSong = new Song(fieldN.getText(), fieldD.getText(), fieldA.getText(), fieldI.getText());
-            musicList.addSong(newSong);
-            label1.setText("Welcome! Your songs are " + songNamesUI());
-        }
-        if (e.getSource() == buttonDelete) {
-            musicList.removeSong(fieldN.getText());
-            label1.setText("Welcome! Your songs are " + songNamesUI());
-        }
-        if (e.getSource() == buttonSave) {
-            saveMusicList();
-            label1.setText("Welcome! Your songs are " + songNamesUI());
-        }
-        if (e.getSource() == buttonLoad) {
-            loadMusicList();
-            label1.setText("Welcome! Your songs are " + songNamesUI());
-        }
+    //EFFECTS: Assigning a function for the add button
+    public void buttonAddFunction() {
+        Song newSong = new Song(fieldN.getText(), fieldD.getText(), fieldA.getText(), fieldI.getText());
+        musicList.addSong(newSong);
+        label1.setText("Welcome to " + musicList.getName() + " ! Your songs are " + songNamesUI());
     }
 
-    public String addSongScreen() {
-        return "Please enter the Song's name, date, artist and info.";
-
+    //EFFECTS: Assigning a function for the delete button
+    public void buttonDeleteFunction() {
+        musicList.removeSong(fieldN.getText());
+        label1.setText("Welcome to " + musicList.getName() + " ! Your songs are " + songNamesUI());
     }
 
-    public String removeSongScreen() {
-        return "Please enter the name of the song you wish to remove.";
+    //EFFECTS: Assigning a function for the save button
+    public void buttonSaveFunction() {
+        saveMusicList();
+        label1.setText("Welcome to " + musicList.getName() + " ! Your songs are " + songNamesUI());
     }
 
-    public String saveListScreen() {
-        return "The list has been saved";
+    //EFFECTS: Assigning a function for the load button
+    public void buttonLoadFunction() {
+        loadMusicList();
+        label1.setText("Welcome back to " + musicList.getName() + " ! Your songs are " + songNamesUI());
     }
 
-
-    public String songNamesUI() {
-        return musicList.getSongsNames().toString();
+    //EFFECTS: Assigning a function for the shuffle button
+    public void buttonShuffleFunction() {
+        musicList.shuffleSongs();
+        label1.setText("Welcome to " + musicList.getName() + " ! Your songs are " + songNamesUI());
     }
 
-
+    //EFFECTS: Assigning a function for the change list name button
+    public void buttonChangeNameFunction() {
+        musicList.setName(fieldC.getText());
+        label1.setText("Welcome to " + musicList.getName() + " ! Your songs are " + songNamesUI());
+    }
 }

@@ -48,4 +48,23 @@ This application will not only benefit me but also millions of other music lover
 
 Credit: Used JSON and persistence files from the CPSC 210 page.
 
+INSTRUCTIONS FOR GRADER:
+1. You can generate the first required event related to adding Xs to a Y by typing the name of 
+the song you want to add in the text field that tells you to type in the song name. 
+Then press the add song button which will add it to a list and the new update list will be 
+displayed on screen above the button.
+2. You can generate the second required event related to adding Xs to a Y by typing in the name of 
+the song in the text field that tells you to type in the name of the song and pressing the remove button. 
+This will remove the song with the entered name from the playlist as well as display the 
+update list on the screen above the button.
+3. You can generate the third required event related to adding Xs to a Y by pressing the shuffle button. 
+This will shuffle the list in random order and display the updated list on the screen at 
+the top of the application.
+4. You can save the state of my application by pressing the save button. 
+This will save the current state of the list.
+5. You can reload the state of my application by pressing the load button. 
+This will load up the last saved list.
+6. You can locate my visual component by simply running the application. The visual component is the 
+background image.
+
 
