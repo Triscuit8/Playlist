@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.MusicList;
 import model.Song;
 import persistence.JsonReader;
@@ -34,6 +36,7 @@ public class LibraryApp extends JFrame implements ActionListener {
     JButton buttonLoad;
     JButton buttonShuffle;
     JButton buttonChangeName;
+    JButton buttonQuit;
 
     JLabel label1;
     JLabel label2;
@@ -244,6 +247,7 @@ public class LibraryApp extends JFrame implements ActionListener {
         createButtonLoad();
         createButtonShuffle();
         createButtonNewListName();
+        createButtonQuit();
         createFields();
         createFrame();
         addComponents();
@@ -269,6 +273,9 @@ public class LibraryApp extends JFrame implements ActionListener {
         }
         if (e.getSource() == buttonChangeName) {
             buttonChangeNameFunction();
+        }
+        if (e.getSource() == buttonQuit) {
+            buttonQuitFunction();
         }
     }
 
@@ -373,6 +380,17 @@ public class LibraryApp extends JFrame implements ActionListener {
         buttonChangeName.setFont(new Font("Comic Sans", Font.BOLD, 12));
     }
 
+    public void createButtonQuit() {
+        buttonQuit = new JButton();
+        buttonQuit.setBounds(735, 525, 40, 40);
+        buttonQuit.addActionListener(this);
+        buttonQuit.setText("Quit");
+        buttonQuit.setFocusable(false);
+        buttonQuit.setBackground(Color.LIGHT_GRAY);
+        buttonQuit.setOpaque(true);
+        buttonQuit.setFont(new Font("Comic Sans", Font.BOLD, 12));
+    }
+
     //EFFECTS: Creates the text fields for the application
     public void createFields() {
         fieldC = new JTextField();
@@ -420,6 +438,7 @@ public class LibraryApp extends JFrame implements ActionListener {
         frame.add(buttonLoad);
         frame.add(buttonShuffle);
         frame.add(buttonChangeName);
+        frame.add(buttonQuit);
         frame.add(fieldC);
         frame.add(fieldN);
         frame.add(fieldD);
@@ -435,6 +454,7 @@ public class LibraryApp extends JFrame implements ActionListener {
     public void buttonAddFunction() {
         Song newSong = new Song(fieldN.getText(), fieldD.getText(), fieldA.getText(), fieldI.getText());
         musicList.addSong(newSong);
+        EventLog.getInstance().logEvent(new Event("Added song."));
         label1.setText("Welcome to " + musicList.getName() + "! Your songs are " + songNamesUI());
         fieldC.setText("Enter new list name...");
         fieldN.setText("Enter song name...");
@@ -446,6 +466,7 @@ public class LibraryApp extends JFrame implements ActionListener {
     //EFFECTS: Assigning a function for the delete button
     public void buttonDeleteFunction() {
         musicList.removeSong(fieldN.getText());
+        EventLog.getInstance().logEvent(new Event("Deleted song."));
         label1.setText("Welcome to " + musicList.getName() + "! Your songs are " + songNamesUI());
         fieldC.setText("Enter new list name...");
         fieldN.setText("Enter song name...");
@@ -458,6 +479,7 @@ public class LibraryApp extends JFrame implements ActionListener {
     public void buttonSaveFunction() {
         saveMusicList();
         label1.setText("Welcome to " + musicList.getName() + "! Your songs are " + songNamesUI());
+        EventLog.getInstance().logEvent(new Event("Saved list."));
         fieldC.setText("Enter new list name...");
         fieldN.setText("Enter song name...");
         fieldD.setText("Enter song date...");
@@ -468,6 +490,7 @@ public class LibraryApp extends JFrame implements ActionListener {
     //EFFECTS: Assigning a function for the load button
     public void buttonLoadFunction() {
         loadMusicList();
+        EventLog.getInstance().logEvent(new Event("Loaded list."));
         label1.setText("Welcome back to " + musicList.getName() + "! Your songs are " + songNamesUI());
         fieldC.setText("Enter new list name...");
         fieldN.setText("Enter song name...");
@@ -479,6 +502,7 @@ public class LibraryApp extends JFrame implements ActionListener {
     //EFFECTS: Assigning a function for the shuffle button
     public void buttonShuffleFunction() {
         musicList.shuffleSongs();
+        EventLog.getInstance().logEvent(new Event("Shuffled list."));
         label1.setText("Welcome to " + musicList.getName() + "! Your songs are " + songNamesUI());
         fieldC.setText("Enter new list name...");
         fieldN.setText("Enter song name...");
@@ -490,11 +514,19 @@ public class LibraryApp extends JFrame implements ActionListener {
     //EFFECTS: Assigning a function for the change list name button
     public void buttonChangeNameFunction() {
         musicList.setName(fieldC.getText());
+        EventLog.getInstance().logEvent(new Event("Changed list name."));
         label1.setText("Welcome to " + musicList.getName() + "! Your songs are " + songNamesUI());
         fieldC.setText("Enter new list name...");
         fieldN.setText("Enter song name...");
         fieldD.setText("Enter song date...");
         fieldA.setText("Enter artist name...");
         fieldI.setText("Enter song info...");
+    }
+
+    public void buttonQuitFunction() {
+        for (Event next : EventLog.getInstance()) {
+            System.out.println(next.toString());
+        }
+        frame.dispose();
     }
 }
