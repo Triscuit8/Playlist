@@ -523,6 +523,7 @@ public class LibraryApp extends JFrame implements ActionListener {
         fieldI.setText("Enter song info...");
     }
 
+    //EFFECTS: Quits the program and displays the eventLog.
     public void buttonQuitFunction() {
         for (Event next : EventLog.getInstance()) {
             System.out.println(next.toString());

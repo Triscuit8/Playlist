@@ -99,6 +99,7 @@ public class MusicList implements Writable {
         Collections.shuffle(this.songs);
     }
 
+    //Creates new Json Object for MusicList.
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -107,7 +108,7 @@ public class MusicList implements Writable {
         return json;
     }
 
-
+    //Puts songs in the this.songs into a Json array.
     private JSONArray songsToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Song s : songs) {

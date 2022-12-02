@@ -39,7 +39,7 @@ public class Song implements Writable {
         return this.info;
     }
 
-
+    //EFFECTS: Creates a new Json Song object.
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

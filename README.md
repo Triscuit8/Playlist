@@ -69,16 +69,33 @@ background image.
 
 Phase 4: Task 2
 
+*When a song is added:*
+
 Fri Dec 02 12:02:44 PST 2022
 Added song.
+
+*When a song is removed:*
+
 Fri Dec 02 12:02:45 PST 2022
 Deleted song.
+
+*The list is saved:*
+
 Fri Dec 02 12:02:46 PST 2022
 Saved list.
+
+*The list has been reloaded:*
+
 Fri Dec 02 12:02:47 PST 2022
 Loaded list.
+
+*When the list is shuffled:*
+
 Fri Dec 02 12:02:48 PST 2022
 Shuffled list.
+
+*When the name of the list is changed:*
+
 Fri Dec 02 12:02:48 PST 2022
 Changed list name.
 
