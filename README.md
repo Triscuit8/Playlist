@@ -67,4 +67,22 @@ This will load up the last saved list.
 6. You can locate my visual component by simply running the application. The visual component is the 
 background image.
 
+Phase 4: Task 2
+
+Fri Dec 02 12:02:44 PST 2022
+Added song.
+Fri Dec 02 12:02:45 PST 2022
+Deleted song.
+Fri Dec 02 12:02:46 PST 2022
+Saved list.
+Fri Dec 02 12:02:47 PST 2022
+Loaded list.
+Fri Dec 02 12:02:48 PST 2022
+Shuffled list.
+Fri Dec 02 12:02:48 PST 2022
+Changed list name.
+
+Phase 4: Task 3
+- If I had more time I would move the gui components into different classes, such as JFrame,
+JPanel, etc. This way the program would be easier to modify.
 
